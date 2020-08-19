@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docs on Kubernetes Developer Workshop</title>
-    <link>/docs/</link>
+    <link>https://nicksterling.github.io/workshops/k8s/docs/</link>
     <description>Recent content in Docs on Kubernetes Developer Workshop</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://nicksterling.github.io/workshops/k8s/docs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Kubernetes Basics</title>
-      <link>/docs/kubernetes_basics/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/kubernetes_basics/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/kubernetes_basics/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/kubernetes_basics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Environment Setup</title>
-      <link>/docs/environment_setup/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/environment_setup/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/environment_setup/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/environment_setup/</guid>
       <description>Environment Setup #  You should be able to do everything locally from your computer without need of a Jumpbox. We will need some dependencies installed:
 Install CLIs #    Kubectl  Helm 3  Log In to Cluster #  You will be given instructions in Zoom on how to login&amp;hellip;
 Create Namespace #  Now that you&amp;rsquo;ve logged in, you&amp;rsquo;ll need your own namespace to work out of.</description>
@@ -31,10 +31,10 @@ Create Namespace #  Now that you&amp;rsquo;ve logged in, you&amp;rsquo;ll need y
     
     <item>
       <title>Pods</title>
-      <link>/docs/pods/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/pods/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/pods/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/pods/</guid>
       <description>Pods #  A pod is the smallest unit of deployment in Kubernetes. It consists of one or more related containers that will deploy together on the same worker node. Pods will share networking and storage across all the grouped containers inside the pod.
 NOTE
 A pod typically only has one container&amp;hellip; but it can contain more than one. Examples would be a sidecar container that does some data initialization or a APM sidecar that pulls application metrics to name just a few.</description>
@@ -42,10 +42,10 @@ A pod typically only has one container&amp;hellip; but it can contain more than 
     
     <item>
       <title>Services</title>
-      <link>/docs/services/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/services/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/services/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/services/</guid>
       <description>Service Overview #  A service is a way to expose an application running on a pod (or set of pods) as a network service. By default Kubernetes gives pods their own IP addresses and DNS entries but they are not addressable to the outside world.
 There are three major types of Services
  ClusterIP: The default type of Service in K8s. It will give you a service that other apps inside your cluster can access.</description>
@@ -53,20 +53,20 @@ There are three major types of Services
     
     <item>
       <title>Deployments</title>
-      <link>/docs/deployments/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/deployments/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/deployments/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/deployments/</guid>
       <description>Deployments #  If you delete a pod, it&amp;rsquo;s gone forever. That&amp;rsquo;s not very resilient. Deployments allow us to create pod definitions and manage the lifecycle of that pod. Let&amp;rsquo;s create a deployment.yml file:
 apiVersion: apps/v1 kind: Deployment metadata: creationTimestamp: null labels: app: hello-k8s name: hello-k8s spec: replicas: 1 selector: matchLabels: app: hello-k8s strategy: {} template: metadata: creationTimestamp: null labels: app: hello-k8s spec: containers: - image: nicksterling/hello-kubernetes:1 name: hello-kubernetes ports: - containerPort: 8080 resources: {} status: {} And apply it:</description>
     </item>
     
     <item>
       <title>Rolling Updates</title>
-      <link>/docs/rolling_updates/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/rolling_updates/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/rolling_updates/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/rolling_updates/</guid>
       <description>Rolling Updates #  Now let&amp;rsquo;s update our app to the latest version. Open up the deployment.yml file and look for the image. Replace the image with this one: nicksterling/hello-kubernetes:2
 Once you&amp;rsquo;ve made the change apply it:
 kubectl apply -f deployment.yml This will go through and roll out the new image. Go to your app to view the change.
@@ -75,10 +75,10 @@ You can roll back a deployment to an earlier version if something went wrong.</d
     
     <item>
       <title>Logging</title>
-      <link>/docs/logging/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/logging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/logging/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/logging/</guid>
       <description>Logging #  Logging is best done when the app exports its logs to STDOUT and STDERR. Kubernetes can pick these up and can stream them to something like Elastic or Splunk.
 To see the logs for our current deployment, run this:
 kubectl logs -f deployment/hello-k8s --all-containers=true </description>
@@ -86,10 +86,10 @@ kubectl logs -f deployment/hello-k8s --all-containers=true </description>
     
     <item>
       <title>Config Maps</title>
-      <link>/docs/configmaps/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/configmaps/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/configmaps/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/configmaps/</guid>
       <description>Config Maps #  A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
 In our example, we&amp;rsquo;ll be exposing some values via environment variables.
 First, let&amp;rsquo;s create the ConfigMap object
@@ -98,10 +98,10 @@ kind: ConfigMap apiVersion: v1 metadata: name: example- data: # Configuration va
     
     <item>
       <title>Secrets</title>
-      <link>/docs/secrets/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/secrets/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/secrets/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/secrets/</guid>
       <description>Secrets #  If ConfigMaps are used for non-sensitive data, then Secrets are used for sensitive data. Examples include:
  SSH Keys API Keys Database Passwords OAuth Tokens  Secrets are not encrypted
 Before we go further, secrets are Base64 encoded&amp;hellip; but are NOT encrypted.
@@ -111,10 +111,10 @@ There are ways to encrypt secrets. We won&amp;rsquo;t cover that in this worksho
     
     <item>
       <title>Helm</title>
-      <link>/docs/helm/</link>
+      <link>https://nicksterling.github.io/workshops/k8s/docs/helm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/helm/</guid>
+      <guid>https://nicksterling.github.io/workshops/k8s/docs/helm/</guid>
       <description>Helm #  Helm is a package manager for Kubernetes. It allows you to bundle up software and its dependencies and deploy and upgrade it easily. This includes databases, CI/CD tools, Kafka, Elastic, etc.
 First let&amp;rsquo;s look at some Helm charts: Bitnami has a great list of open-source charts. Bitnami Helm Charts
 In this example, we&amp;rsquo;ll deploy a blog platform called Ghost.</description>

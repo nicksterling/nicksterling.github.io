@@ -1,0 +1,1 @@
+if(navigator.serviceWorker){navigator.serviceWorker.register("/workshops/k8s/sw.js",{scope:"/workshops/k8s/"});}

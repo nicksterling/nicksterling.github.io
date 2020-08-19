@@ -3,71 +3,71 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/docs/kubernetes_basics/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/kubernetes_basics/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/environment_setup/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/environment_setup/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/pods/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/pods/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/services/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/services/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/deployments/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/deployments/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/rolling_updates/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/rolling_updates/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/logging/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/logging/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/configmaps/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/configmaps/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/secrets/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/secrets/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/helm/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/helm/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/categories/</loc>
   </url>
   
   <url>
-    <loc>/docs/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/docs/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/</loc>
     <lastmod>2020-08-19T14:05:37-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://nicksterling.github.io/workshops/k8s/tags/</loc>
   </url>
   
 </urlset>
