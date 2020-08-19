@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pods #  A pod is the smallest unit of deployment in Kubernetes. It consists of one or more related containers that will deploy together on the same worker node. Pods will share networking and storage across all the grouped containers inside the pod.
+NOTE
+A pod typically only has one container&hellip; but it can contain more than one. Examples would be a sidecar container that does some data initialization or a APM sidecar that pulls application metrics to name just a few.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Pods" />
+<meta property="og:description" content="Pods #  A pod is the smallest unit of deployment in Kubernetes. It consists of one or more related containers that will deploy together on the same worker node. Pods will share networking and storage across all the grouped containers inside the pod.
+NOTE
+A pod typically only has one container&hellip; but it can contain more than one. Examples would be a sidecar container that does some data initialization or a APM sidecar that pulls application metrics to name just a few." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/pods/" />
+
+<title>Pods | Kubernetes Developer Workshop</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.b3215d9d1d18d9051e7fbe8f256ff80e30f41d29073b86348e230d297b771002.css" integrity="sha256-syFdnR0Y2QUef76PJW/4DjD0HSkHO4Y0jiMNKXt3EAI=">
+<script defer src="/en.search.min.ee6333748bada273f348e4073b6998365166359c074ea518833be42b644bc864.js" integrity="sha256-7mMzdIutonPzSOQHO2mYNlFmNZwHTqUYgzvkK2RLyGQ="></script>
+
+<script defer src="/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Kubernetes Developer Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/environment_setup/" class="">Environment Setup</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/pods/" class="active">Pods</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/services/" class="">Services</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/deployments/" class="">Deployments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/rolling_updates/" class="">Rolling Updates</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/logging/" class="">Logging</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/configmaps/" class="">Config Maps</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/secrets/" class="">Secrets</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/docs/helm/" class="">Helm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Pods</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pods">Pods</a>
+      <ul>
+        <li><a href="#declarative-vs-imperative">Declarative vs Imperative</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="pods">
+  Pods
+  <a class="anchor" href="#pods">#</a>
+</h1>
+<p>A pod is the smallest unit of deployment in Kubernetes. It consists of one or more related containers that will deploy together on the same worker node. Pods will share networking and storage across all the grouped containers inside the pod.</p>
+<blockquote class="book-hint info">
+  <strong>NOTE</strong><br>
+A pod typically only has one container&hellip; but it can contain more than one. Examples would be a sidecar container that does some data initialization or a APM sidecar that pulls application metrics to name just a few.
+</blockquote>
+
+<p>The simplest way to deploy a pod is declaratively. Run this command:</p>
+<pre><code>kubectl run hello-k8s --restart=Never --image=nicksterling/hello-kubernetes:1 --port=8080
+</code></pre><p>Now let&rsquo;s see the running pod</p>
+<pre><code>kubectl get pods
+</code></pre><p>You should see output like the following</p>
+<pre><code>NAME        READY   STATUS    RESTARTS   AGE
+hello-k8s   1/1     Running   0          13s
+</code></pre><p>Let&rsquo;s dive into the pod a little bit more and get more details</p>
+<pre><code>kubectl describe pod hello-k8s
+</code></pre><p>You should see a lot of output</p>
+<pre><code>Name:         hello-k8s
+Namespace:    default
+Priority:     0
+Node:         kind-worker2/172.19.0.2
+Start Time:   Mon, 22 Jun 2020 21:32:05 -0600
+Labels:       run=hello-k8s
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.244.1.4
+IPs:
+  IP:  10.244.1.4
+Containers:
+  hello-k8s:
+    Container ID:   containerd://1a18e5a6c08ca26e5f2f15576dd7b0f00ef1fca62c46fde42e86eb34305c3f17
+    Image:          nicksterling/hello-kubernetes:1
+    Image ID:       docker.io/nicksterling/hello-kubernetes@sha256:e91f805764b59b877e1d1ac70a678bbb097db1a7613eb8ba59f03e7b5c12e5c1
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 22 Jun 2020 21:32:05 -0600
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-bhwkz (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  default-token-bhwkz:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-bhwkz
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From                   Message
+  ----    ------     ----  ----                   -------
+  Normal  Scheduled  87s   default-scheduler      Successfully assigned default/hello-k8s to kind-worker2
+  Normal  Pulled     87s   kubelet, kind-worker2  Container image &quot;nicksterling/hello-kubernetes:1&quot; already present on machine
+  Normal  Created    87s   kubelet, kind-worker2  Created container hello-k8s
+  Normal  Started    87s   kubelet, kind-worker2  Started container hello-k8s
+</code></pre><h2 id="declarative-vs-imperative">
+  Declarative vs Imperative
+  <a class="anchor" href="#declarative-vs-imperative">#</a>
+</h2>
+<p>Up to this point we&rsquo;ve done everything imperatively. We&rsquo;ve issued commands into the CLI and started up a pod. This is <strong>not</strong> the recommended way to work with Kubernetes. We recommend telling Kubernetes <strong>declaratively</strong> using a manifest file the state of what we want and let Kubernetes figure out how to do it.</p>
+<p>Let&rsquo;s remove the pod we&rsquo;ve imperatively created.</p>
+<pre><code>kubectl delete pod hello-k8s
+</code></pre><p>Now let&rsquo;s create a manifest file called <strong>pod.yml</strong> and put this as the contents</p>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: hello-k8s
+  name: hello-k8s
+spec:
+  containers:
+  - image: nicksterling/hello-kubernetes:1
+    name: hello-k8s
+    ports:
+    - containerPort: 8080
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+</code></pre><p>Now let&rsquo;s apply that file</p>
+<pre><code>kubectl apply -f pod.yml
+</code></pre><p>We have a pod again! Now up to this point we don&rsquo;t have an easy way to view this in a web browser. We need to expose that as a <strong>service</strong>. Let&rsquo;s go over that next.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/edit/master/exampleSite/content/docs/pods.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pods">Pods</a>
+      <ul>
+        <li><a href="#declarative-vs-imperative">Declarative vs Imperative</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
