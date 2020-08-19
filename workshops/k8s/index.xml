@@ -93,7 +93,7 @@ kubectl logs -f deployment/hello-k8s --all-containers=true </description>
       <description>Config Maps #  A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
 In our example, we&amp;rsquo;ll be exposing some values via environment variables.
 First, let&amp;rsquo;s create the ConfigMap object
-kind: ConfigMap apiVersion: v1 metadata: name: example-configmap data: # Configuration values can be set as key-value properties database: mongodb database_uri: mongodb://localhost:27017 MESSAGE: &amp;quot;A NEW MESSAGE!</description>
+kind: ConfigMap apiVersion: v1 metadata: name: example- data: # Configuration values can be set as key-value properties database: mongodb database_uri: mongodb://localhost:27017 MESSAGE: &amp;quot;A NEW MESSAGE!</description>
     </item>
     
     <item>
