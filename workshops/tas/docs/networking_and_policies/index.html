@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Networking &amp; Policies (Advanced) Target the Environment This example demonstrates communication (HTTP and UDP) between a frontend and backend applications using service discovery over the container network.
+  Follow the earlier instructions to Get Environment Access
+  Clone or download the repo into a path CF Networking Examples :
+  Frontend The frontend allows you to test out container network communication via two methods:
+ Connect to the backend via HTTP Connect to the backend via UDP  In either case, the response from the backend to the frontend will be rendered as a web page.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Networking &amp; Policies (Advanced)" />
+<meta property="og:description" content="Networking &amp; Policies (Advanced) Target the Environment This example demonstrates communication (HTTP and UDP) between a frontend and backend applications using service discovery over the container network.
+  Follow the earlier instructions to Get Environment Access
+  Clone or download the repo into a path CF Networking Examples :
+  Frontend The frontend allows you to test out container network communication via two methods:
+ Connect to the backend via HTTP Connect to the backend via UDP  In either case, the response from the backend to the frontend will be rendered as a web page." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicksterling.github.io/workshops/tas/docs/networking_and_policies/" />
+
+<title>Networking &amp; Policies (Advanced) | Tanzu Application Service Workshop</title>
+<link rel="manifest" href="/workshops/tas/manifest.json">
+<link rel="icon" href="/workshops/tas/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/workshops/tas/book.min.b3215d9d1d18d9051e7fbe8f256ff80e30f41d29073b86348e230d297b771002.css" integrity="sha256-syFdnR0Y2QUef76PJW/4DjD0HSkHO4Y0jiMNKXt3EAI=">
+<script defer src="/workshops/tas/en.search.min.1e3c97c5c590f7efd500c46633a18f80c9c4aade905c70fca062a4ca035604c4.js" integrity="sha256-HjyXxcWQ9&#43;/VAMRmM6GPgMnEqt6QXHD8oGKkygNWBMQ="></script>
+
+<script defer src="/workshops/tas/sw.min.6f778cb1cffd5da8a083f6549ff6a6e68149075c4a0d22bf6b56d20f6e160be3.js" integrity="sha256-b3eMsc/9Xaigg/ZUn/am5oFJB1xKDSK/a1bSD24WC&#43;M="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/workshops/tas"><span>Tanzu Application Service Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/environment_setup/" class="">Environment Setup</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/cloudfoundry/" class="">Pushing to Cloud Foundry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/services/" class="">Binding Cloudfoundry Services</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/operating_your_application/" class="">Operating Your Application</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/monitoring_your_application/" class="">Monitoring Your Application</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/networking_and_policies/" class="active">Networking &amp; Policies (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/data_management/" class="">Data Management (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/security/" class="">Security Documentation (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/troubleshooting/" class="">Troubleshooting App Development &amp; Health (Advanced)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/workshops/tas/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Networking &amp; Policies (Advanced)</strong>
+
+  <label for="toc-control">
+    
+    <img src="/workshops/tas/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#networking--policies-advanced">Networking &amp; Policies (Advanced)</a>
+      <ul>
+        <li><a href="#target-the-environment">Target the Environment</a></li>
+        <li><a href="#frontend">Frontend</a>
+          <ul>
+            <li><a href="#deploying">Deploying</a></li>
+          </ul>
+        </li>
+        <li><a href="#backend">Backend</a>
+          <ul>
+            <li><a href="#deploying-1">Deploying</a></li>
+          </ul>
+        </li>
+        <li><a href="#usage-with-http">Usage with HTTP</a></li>
+        <li><a href="#usage-with-udp">Usage with UDP</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="networking--policies-advanced">Networking &amp; Policies (Advanced)</h1>
+<h2 id="target-the-environment">Target the Environment</h2>
+<p>This example demonstrates communication (HTTP and UDP) between a frontend and backend applications using service discovery over the container network.</p>
+<ol>
+<li>
+<p>Follow the earlier instructions to Get Environment Access</p>
+</li>
+<li>
+<p>Clone or download the repo into a path 
+  <a href="https://github.com/nicksterling/cf-networking-examples">CF Networking Examples</a> :</p>
+</li>
+</ol>
+<h2 id="frontend">Frontend</h2>
+<p>The frontend allows you to test out container network communication via two methods:</p>
+<ul>
+<li>Connect to the backend via HTTP</li>
+<li>Connect to the backend via UDP</li>
+</ul>
+<p>In either case, the response from the backend to the frontend will be rendered as a web page.</p>
+<h3 id="deploying">Deploying</h3>
+<pre><code>    $ cd frontend
+    $ cf push frontend
+</code></pre>
+<p><strong>Use Case: Frontend Connects to Backend</strong></p>
+<h2 id="backend">Backend</h2>
+<p>The backend will be pushed with no external route and therefore should not be accessible via the public internet.</p>
+<p>Backend serves a picture of a typing cat on the TCP ports specified in the environment variable CATS_PORTS, and responds to simple text messages on the UDP ports specified in the environment variable UDP_PORTS.</p>
+<p>We will give the backend an internal hostname that will map to the app’s container ips and can be used to connect via container-to-container networking. An internal hostname is configured via the CF CLI map-route command, with the domain provided set to the reserved internal domain of apps.internal.</p>
+<h3 id="deploying-1">Deploying</h3>
+<p>Backend (example with internal route defined in app manifest)</p>
+<pre><code>    $ cd $DIR/backend
+    $ cf push backend --no-start
+    $ cf set-env backend CATS_PORTS &quot;7007,7008&quot;
+    $ cf set-env backend UDP_PORTS &quot;9003,9004&quot;
+    $ cf start backend
+</code></pre>
+<p>Usage</p>
+<p>After both frontend and backend apps have been deployed, you can visit the frontend URL in a browser. You should see something like:</p>
+<pre><code>    Frontend Sample App
+
+    HTTP Test
+    Backend HTTP URL: [....] [ Submit ]
+
+    UDP Test
+    Backend UDP Server Address: [....]
+    Message: [....] [ Submit ]
+</code></pre>
+<h2 id="usage-with-http">Usage with HTTP</h2>
+<p>In the frontend app, in the Backend HTTP URL field enter backend’s internal hostname and a cats port (<em>backend.apps.internal:7007</em>). Hit submit.</p>
+<p>You will see an error message saying the connection is refused. This is because the two apps have not been configured to allow connections from the frontend to the backend.</p>
+<p>If you see an error message saying no such host, service discovery is incorrectly configured.</p>
+<p>Now allow access:</p>
+<pre><code>    cf add-network-policy frontend --destination-app backend --port 7007 --protocol tcp
+</code></pre>
+<p>Now if you try again from the frontend:</p>
+<pre><code>[GIF OF CAT]
+Hello from the backend, port: 7007
+</code></pre>
+<p>Doing the same thing with backend-b should result in a different cat (specifically, a party cat) being shown.</p>
+<h2 id="usage-with-udp">Usage with UDP</h2>
+<p>In the frontend app, in the Backend UDP Server Address field, enter the backend’s internal hostname and UDP port (<em>backend.apps.internal:9003</em>) and a message. Hit submit.</p>
+<p>You will see an error message. This is because the two apps have not been configured to allow connections from the frontend to the backend.</p>
+<p>Now allow access:</p>
+<pre><code>    cf add-network-policy frontend --destination-app backend --port 9003 --protocol udp
+</code></pre>
+<p>Now if you try again from the frontend:</p>
+<pre><code>    You sent the message: hello world
+
+    Backend UDP server replied: HELLO WORLD
+</code></pre>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/edit/master/exampleSite/content/docs/networking_and_policies.md" target="_blank" rel="noopener">
+      <img src="/workshops/tas/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#networking--policies-advanced">Networking &amp; Policies (Advanced)</a>
+      <ul>
+        <li><a href="#target-the-environment">Target the Environment</a></li>
+        <li><a href="#frontend">Frontend</a>
+          <ul>
+            <li><a href="#deploying">Deploying</a></li>
+          </ul>
+        </li>
+        <li><a href="#backend">Backend</a>
+          <ul>
+            <li><a href="#deploying-1">Deploying</a></li>
+          </ul>
+        </li>
+        <li><a href="#usage-with-http">Usage with HTTP</a></li>
+        <li><a href="#usage-with-udp">Usage with UDP</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

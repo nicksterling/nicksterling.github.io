@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Monitoring your application Pivotal Cloudfoundry makes the work of performing operations actions, such as scaling, doing a zero-downtime deploy, and managing application health very easy. In the this labs we’ll continue to explore Pivotal Cloudfoundry application operations.
+Application Container and Network Monitoring with PCF Metrics PCF Metrics helps developers better understand the health and performance of their apps by providing a near real-time view of critical data. Developers can see performance issues within two to three seconds, learn about events like an app crash as they occur, and look back in time to see what happened while they were away.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Monitoring Your Application" />
+<meta property="og:description" content="Monitoring your application Pivotal Cloudfoundry makes the work of performing operations actions, such as scaling, doing a zero-downtime deploy, and managing application health very easy. In the this labs we’ll continue to explore Pivotal Cloudfoundry application operations.
+Application Container and Network Monitoring with PCF Metrics PCF Metrics helps developers better understand the health and performance of their apps by providing a near real-time view of critical data. Developers can see performance issues within two to three seconds, learn about events like an app crash as they occur, and look back in time to see what happened while they were away." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicksterling.github.io/workshops/tas/docs/monitoring_your_application/" />
+
+<title>Monitoring Your Application | Tanzu Application Service Workshop</title>
+<link rel="manifest" href="/workshops/tas/manifest.json">
+<link rel="icon" href="/workshops/tas/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/workshops/tas/book.min.b3215d9d1d18d9051e7fbe8f256ff80e30f41d29073b86348e230d297b771002.css" integrity="sha256-syFdnR0Y2QUef76PJW/4DjD0HSkHO4Y0jiMNKXt3EAI=">
+<script defer src="/workshops/tas/en.search.min.1e3c97c5c590f7efd500c46633a18f80c9c4aade905c70fca062a4ca035604c4.js" integrity="sha256-HjyXxcWQ9&#43;/VAMRmM6GPgMnEqt6QXHD8oGKkygNWBMQ="></script>
+
+<script defer src="/workshops/tas/sw.min.6f778cb1cffd5da8a083f6549ff6a6e68149075c4a0d22bf6b56d20f6e160be3.js" integrity="sha256-b3eMsc/9Xaigg/ZUn/am5oFJB1xKDSK/a1bSD24WC&#43;M="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/workshops/tas"><span>Tanzu Application Service Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/environment_setup/" class="">Environment Setup</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/cloudfoundry/" class="">Pushing to Cloud Foundry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/services/" class="">Binding Cloudfoundry Services</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/operating_your_application/" class="">Operating Your Application</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/monitoring_your_application/" class="active">Monitoring Your Application</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/networking_and_policies/" class="">Networking &amp; Policies (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/data_management/" class="">Data Management (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/security/" class="">Security Documentation (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/troubleshooting/" class="">Troubleshooting App Development &amp; Health (Advanced)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/workshops/tas/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Monitoring Your Application</strong>
+
+  <label for="toc-control">
+    
+    <img src="/workshops/tas/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#monitoring-your-application">Monitoring your application</a>
+      <ul>
+        <li><a href="#application-container-and-network-monitoring-with-pcf-metrics">Application Container and Network Monitoring with PCF Metrics</a></li>
+        <li><a href="#tailing-application-logs">Tailing Application Logs</a>
+          <ul>
+            <li><a href="#for-developers">For Developers</a></li>
+          </ul>
+        </li>
+        <li><a href="#viewing-application-events">Viewing Application Events</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="monitoring-your-application">Monitoring your application</h1>
+<p>Pivotal Cloudfoundry makes the work of performing operations actions, such as scaling, doing a zero-downtime deploy, and managing application health very easy. In the this labs we’ll continue to explore Pivotal Cloudfoundry application operations.</p>
+<h2 id="application-container-and-network-monitoring-with-pcf-metrics">Application Container and Network Monitoring with PCF Metrics</h2>
+<p>PCF Metrics helps developers better understand the health and performance of their apps by providing a near real-time view of critical data. Developers can see performance issues within two to three seconds, learn about events like an app crash as they occur, and look back in time to see what happened while they were away.</p>
+<p>For developers, there’s nothing to install or configure, just select an app and watch the data stream.</p>
+<p>PCF Metrics provides the following data on app health and performance</p>
+<ul>
+<li>
+<p>Container metrics: CPU, memory, and disk percentages (updated every 30 seconds)</p>
+</li>
+<li>
+<p>HTTP metrics: requests per second, HTTP errors per second, and request latency (updated every second)</p>
+</li>
+<li>
+<p>App events: create, update, start, stop, and crash (updated as they happen)</p>
+</li>
+</ul>
+<h2 id="tailing-application-logs">Tailing Application Logs</h2>
+<p>One of the most important enablers of visibility into application behavior is logging. Effective management of logs has historically been very difficult. Cloud Foundry’s log aggregation components simplify log management by assuming responsibility for it. Application developers need only log all messages to either STDOUT or STDERR, and the platform will capture these messages.</p>
+<h3 id="for-developers">For Developers</h3>
+<p>Application developers can view application logs using the CF CLI.</p>
+<p>Let’s view recent log messages for the application. In each of the commands below replace workshop with the name of your deployed application:</p>
+<pre><code>$ cf logs workshop --recent
+</code></pre>
+<p>Here are two interesting subsets of one output from that command:</p>
+<pre><code>2015-02-13T14:45:39.40-0600 [RTR/0]      OUT cf-scale-boot-stockinged-rust.cfapps.io - [13/02/2015:20:45:39 +0000] &quot;GET /css/bootstrap.min.css HTTP/1.1&quot; 304 0 &quot;http://cf-scale-boot-stockinged-rust.cfapps.io/&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36&quot; 10.10.66.88:50372 x_forwarded_for:&quot;50.157.39.197&quot; vcap_request_id:84cc1b7a-bb30-4355-7512-5adaf36ff767 response_time:0.013115764 app_id:7a428901-1691-4cce-b7f6-62d186c5cb55
+2015-02-13T14:45:39.40-0600 [RTR/1]      OUT cf-scale-boot-stockinged-rust.cfapps.io - [13/02/2015:20:45:39 +0000] &quot;GET /img/LOGO_CloudFoundry_Large.png HTTP/1.1&quot; 304 0 &quot;http://cf-scale-boot-stockinged-rust.cfapps.io/&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36&quot; 10.10.66.88:24323 x_forwarded_for:&quot;50.157.39.197&quot; vcap_request_id:b3e2466b-6a41-4c6d-5b3d-0f70702c0ec1 response_time:0.010003444 app_id:7a428901-1691-4cce-b7f6-62d186c5cb55
+2015-02-13T15:04:33.09-0600 [API/1]      OUT Tried to stop app that never received a start event
+2015-02-13T15:04:33.51-0600 [DEA/12]     OUT Starting app instance (index 2) with guid 7a428901-1691-4cce-b7f6-62d186c5cb55
+2015-02-13T15:04:33.71-0600 [DEA/4]      OUT Starting app instance (index 3) with guid 7a428901-1691-4cce-b7f6-62d186c5cb55
+
+    An “Apache-style” access log event from the (Go)Router
+
+    An API log event that corresponds to an event as shown in cf events
+
+    A DEA log event indicating the start of an application instance on that DEA.
+
+2015-02-13T16:01:50.28-0600 [App/0]      OUT 2015-02-13 22:01:50.282  INFO 36 --- [       runner-0] o.s.b.a.e.jmx.EndpointMBeanExporter      : Located managed bean 'autoConfigurationAuditEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=autoConfigurationAuditEndpoint]
+2015-02-13T16:01:50.28-0600 [App/0]      OUT 2015-02-13 22:01:50.287  INFO 36 --- [       runner-0] o.s.b.a.e.jmx.EndpointMBeanExporter      : Located managed bean 'shutdownEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=shutdownEndpoint]
+2015-02-13T16:01:50.29-0600 [App/0]      OUT 2015-02-13 22:01:50.299  INFO 36 --- [       runner-0] o.s.b.a.e.jmx.EndpointMBeanExporter      : Located managed bean 'configurationPropertiesReportEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=configurationPropertiesReportEndpoint]
+2015-02-13T16:01:50.36-0600 [App/0]      OUT 2015-02-13 22:01:50.359  INFO 36 --- [       runner-0] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 61316/http
+2015-02-13T16:01:50.36-0600 [App/0]      OUT Started...
+2015-02-13T16:01:50.36-0600 [App/0]      OUT 2015-02-13 22:01:50.364  INFO 36 --- [       runner-0] o.s.boot.SpringApplication               : Started application in 6.906 seconds (JVM running for 15.65)
+</code></pre>
+<p>As you can see, Cloud Foundry’s log aggregation components capture both application logs and CF component logs relevant to your application. These events are properly interleaved based on time, giving you an accurate picture of events as they transpired across the system.</p>
+<p>To get a running “tail” of the application logs rather than a dump, simply type(replace workshop with the name of your deployed application):</p>
+<pre><code>$ cf logs workshop
+</code></pre>
+<p>You can try various things like refreshing the browser and triggering stop/start events to see logs being generated.</p>
+<h2 id="viewing-application-events">Viewing Application Events</h2>
+<p>Cloud Foundry only allows application configuration to be modified via its API. This gives application operators confidence that all changes to application configuration are known and auditable. It also reduces the number of causes that must be considered when problems arise.</p>
+<p>All application configuration changes are recorded as events. These events can be viewed via the Cloud Foundry API, and viewing is facilitated via the CLI.</p>
+<p>Take a look at the events that have transpired so far for our deployment of workshop:</p>
+<pre><code>    $ cf events workshop
+    Getting events for app workshop in org TELCO / space gammon as admin...
+
+    time                          event                 actor      description
+    2015-08-11T08:58:57.00-0400   app.crash             workshop   index: 0, reason: CRASHED, exit_description: app instance exited, exit_status: 255  
+    2015-08-11T08:58:17.00-0400   audit.app.update      admin      instances: 5
+    2015-08-11T08:58:11.00-0400   audit.app.update      admin
+    2015-08-11T08:58:11.00-0400   audit.app.map-route   admin
+    2015-08-11T08:54:35.00-0400   audit.app.update      admin      state: STARTED  
+    2015-08-11T08:54:22.00-0400   audit.app.update      admin  
+    2015-08-11T08:54:22.00-0400   audit.app.map-route   admin  
+    2015-08-11T08:54:19.00-0400   audit.app.create      admin      instances: 1, memory: 512, state: STOPPED, environment_json: PRIVATE DATA HIDDEN
+</code></pre>
+<ul>
+<li>
+<p>Events are sorted newest to oldest, so we’ll start from the bottom. Here we see the app.create event, which created our application’s record and stored all of its metadata (e.g. memory: 512).</p>
+</li>
+<li>
+<p>The app.map-route event records the incoming request to assign a route to our application.</p>
+</li>
+<li>
+<p>This app.update event records the resulting change to our applications metadata.</p>
+</li>
+<li>
+<p>This app.update event records the change of our application’s state to STARTED.</p>
+</li>
+<li>
+<p>Remember scaling the application up? This app.update event records the metadata change instances: 5.</p>
+</li>
+<li>
+<p>And here’s the app.crash event recording that we encountered a crash of an application instance.</p>
+</li>
+</ul>
+<p>Let’s explicitly ask for the application to be stopped:</p>
+<pre><code>$ cf stop workshop
+Stopping app workshop in org TELCO / space gammon as admin...
+OK
+</code></pre>
+<p>Now, examine the additional app.update event:</p>
+<pre><code>$ cf events workshop
+Getting events for app workshop in org TELCO / space gammon as admin...
+
+time                          event                 actor      description
+2015-08-11T09:01:35.00-0400   audit.app.update      admin      state: STOPPED
+2015-08-11T08:58:57.00-0400   app.crash             workshop   index: 0, reason: CRASHED, exit_description: app instance exited, exit_status: 255
+2015-08-11T08:58:17.00-0400   audit.app.update      admin      instances: 5
+2015-08-11T08:58:11.00-0400   audit.app.update      admin
+2015-08-11T08:58:11.00-0400   audit.app.map-route   admin
+2015-08-11T08:54:35.00-0400   audit.app.update      admin      state: STARTED
+2015-08-11T08:54:22.00-0400   audit.app.update      admin
+2015-08-11T08:54:22.00-0400   audit.app.map-route   admin
+2015-08-11T08:54:19.00-0400   audit.app.create      admin      instances: 1, memory: 512, state: STOPPED, environment_json: PRIVATE DATA HIDDEN
+</code></pre>
+<p>Start the application again:</p>
+<pre><code>$ cf start workshop
+Starting app workshop in org TELCO / space gammon as admin...
+
+0 of 5 instances running, 5 starting
+2 of 5 instances running, 3 starting
+
+App started
+
+
+Showing health and status for app workshop in org TELCO / space gammon as admin...
+OK
+
+requested state: started
+instances: 5/5
+usage: 512M x 5 instances
+urls: workshop-subhepatic-retiredness.vert.fe.gopivotal.com, adam-app.vert.fe.gopivotal.com
+last uploaded: Tue Aug 11 12:54:33 UTC 2015
+stack: cflinuxfs3
+
+     state      since                    cpu    memory           disk           details
+#0   starting   2015-08-11 09:02:17 AM   0.0%   435.6M of 512M   144.4M of 1G
+#1   running    2015-08-11 09:02:26 AM   0.0%   406.3M of 512M   144.4M of 1G
+#2   running    2015-08-11 09:02:27 AM   0.0%   401.2M of 512M   144.4M of 1G
+#3   running    2015-08-11 09:02:26 AM   0.0%   403.9M of 512M   144.4M of 1G
+#4   starting   2015-08-11 09:02:17 AM   0.0%   398.2M of 512M   144.4M of 1G
+</code></pre>
+<p>And again, view the additional app.update event:</p>
+<pre><code>$ cf events workshop
+Getting events for app workshop in org TELCO / space gammon as admin...
+
+time                          event                 actor      description
+2015-08-11T09:02:17.00-0400   audit.app.update      admin      state: STARTED
+2015-08-11T09:01:35.00-0400   audit.app.update      admin      state: STOPPED
+2015-08-11T08:58:57.00-0400   app.crash             workshop   index: 0, reason: CRASHED, exit_description: app instance exited, exit_status: 255
+2015-08-11T08:58:17.00-0400   audit.app.update      admin      instances: 5
+2015-08-11T08:58:11.00-0400   audit.app.update      admin
+2015-08-11T08:58:11.00-0400   audit.app.map-route   admin
+2015-08-11T08:54:35.00-0400   audit.app.update      admin      state: STARTED
+2015-08-11T08:54:22.00-0400   audit.app.update      admin
+2015-08-11T08:54:22.00-0400   audit.app.map-route   admin
+2015-08-11T08:54:19.00-0400   audit.app.create      admin      instances: 1, memory: 512, state: STOPPED, environment_json: PRIVATE DATA HIDDEN
+</code></pre>
+<p>On to the next Lab!</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/edit/master/exampleSite/content/docs/monitoring_your_application.md" target="_blank" rel="noopener">
+      <img src="/workshops/tas/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#monitoring-your-application">Monitoring your application</a>
+      <ul>
+        <li><a href="#application-container-and-network-monitoring-with-pcf-metrics">Application Container and Network Monitoring with PCF Metrics</a></li>
+        <li><a href="#tailing-application-logs">Tailing Application Logs</a>
+          <ul>
+            <li><a href="#for-developers">For Developers</a></li>
+          </ul>
+        </li>
+        <li><a href="#viewing-application-events">Viewing Application Events</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

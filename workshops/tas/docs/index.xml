@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on Tanzu Application Service Workshop</title>
+    <link>https://nicksterling.github.io/workshops/tas/docs/</link>
+    <description>Recent content in Docs on Tanzu Application Service Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="https://nicksterling.github.io/workshops/tas/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kubernetes Basics</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/kubernetes_basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/kubernetes_basics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Environment Setup</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/environment_setup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/environment_setup/</guid>
+      <description>Environment Setup Account set up  Access to Pivotal Web Services  Target the Environment If you haven’t already, download the latest 0.6 release of the Cloud Foundry CLI from https://github.com/cloudfoundry/cli/releases for your operating system and install it.
+NOTE: The Tanzu Application Service is not currently compatible with the latest 7.0 version of the cf cli. Please download the latest release of version 6.  Login to Pivotal Cloud Foundry and follow the prompts</description>
+    </item>
+    
+    <item>
+      <title>Pushing to Cloud Foundry</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/cloudfoundry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/cloudfoundry/</guid>
+      <description>Pushing to Cloud Foundry Push It! Clone or download the repo into a path Spring Music :
+$ cd $WORKSHOP_HOME/spring-music  Push the application!
+$ cf push  You should see output similar to the following listing. Language specific output has been omitted for clarity. Take a look at the listing callouts for a play-by-play of what’s happening:
+Using manifest file /Users/phopper/workspace/NBCU-PCF-Workshop-101/cf-spring-mvc-boot/manifest.yml Creating app workshop in org TELCO / space hopper as phopper@pivotal.</description>
+    </item>
+    
+    <item>
+      <title>Binding Cloudfoundry Services</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/services/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/services/</guid>
+      <description>Binding Cloudfoundry Services The Workshop application was designed to illustrate the ease with which data services can be bound to and utilized by applications running on Cloud Foundry. In this lab, we’ll be binding the application to a Postgres databases.
+Cloud Foundry services are managed through two primary types of operations:
+Create/Delete
+ These operations create or delete instances of a service. For a database this could mean creating/deleting a schema in an existing multitenant cluster or creating/deleting a dedicated database cluster.</description>
+    </item>
+    
+    <item>
+      <title>Operating Your Application</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/operating_your_application/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/operating_your_application/</guid>
+      <description>Operating your application Pivotal Cloudfoundry makes the work of performing operations actions, such as scaling, doing a zero-downtime deploy, and managing application health very easy. In the next two labs we’ll explore Pivotal Cloudfoundry operations.
+Scale the Application Up Now let’s increase the number of running application instances to 3. In each of the commands below replace workshop with the name of your deployed application:
+$ cf scale -i 3 workshop Scaling app workshop in org DEMO / space gammon as nsterling@pivotal.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring Your Application</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/monitoring_your_application/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/monitoring_your_application/</guid>
+      <description>Monitoring your application Pivotal Cloudfoundry makes the work of performing operations actions, such as scaling, doing a zero-downtime deploy, and managing application health very easy. In the this labs we’ll continue to explore Pivotal Cloudfoundry application operations.
+Application Container and Network Monitoring with PCF Metrics PCF Metrics helps developers better understand the health and performance of their apps by providing a near real-time view of critical data. Developers can see performance issues within two to three seconds, learn about events like an app crash as they occur, and look back in time to see what happened while they were away.</description>
+    </item>
+    
+    <item>
+      <title>Networking &amp; Policies (Advanced)</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/networking_and_policies/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/networking_and_policies/</guid>
+      <description>Networking &amp;amp; Policies (Advanced) Target the Environment This example demonstrates communication (HTTP and UDP) between a frontend and backend applications using service discovery over the container network.
+  Follow the earlier instructions to Get Environment Access
+  Clone or download the repo into a path CF Networking Examples :
+  Frontend The frontend allows you to test out container network communication via two methods:
+ Connect to the backend via HTTP Connect to the backend via UDP  In either case, the response from the backend to the frontend will be rendered as a web page.</description>
+    </item>
+    
+    <item>
+      <title>Data Management (Advanced)</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/data_management/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/data_management/</guid>
+      <description>Data Management (Advanced) Writing Files to local file system is a Cloud Native anti-pattern, but sometimes you just got to for any number of reasons.
+ Tanzu Data Management</description>
+    </item>
+    
+    <item>
+      <title>Security Documentation (Advanced)</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/security/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/security/</guid>
+      <description>Security Documentation PWS implements the following measures to mitigate against security threats:
+ Minimizes network surface area Isolates customer apps and data in containers Encrypts connections Uses role-based access controls, applying and enforcing roles and permissions to ensure that users can only view and affect the spaces for which they have been granted access Ensures security of app bits in a multi-tenant environment Prevents possible denial of service attacks through resource starvation  For more details please see the security documentation: Security Documentation</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting App Development &amp; Health (Advanced)</title>
+      <link>https://nicksterling.github.io/workshops/tas/docs/troubleshooting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nicksterling.github.io/workshops/tas/docs/troubleshooting/</guid>
+      <description>Troubleshooting App Development &amp;amp; Health (Advanced) For common troubleshooting tips please visit this documentation:
+ Troubleshooting App Development &amp;amp; Health</description>
+    </item>
+    
+  </channel>
+</rss>

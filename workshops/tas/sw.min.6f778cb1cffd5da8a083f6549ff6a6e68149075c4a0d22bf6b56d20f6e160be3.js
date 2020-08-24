@@ -1,0 +1,1 @@
+if(navigator.serviceWorker){navigator.serviceWorker.register("/workshops/tas/sw.js",{scope:"/workshops/tas/"});}

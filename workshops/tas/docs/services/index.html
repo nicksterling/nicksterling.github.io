@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Binding Cloudfoundry Services The Workshop application was designed to illustrate the ease with which data services can be bound to and utilized by applications running on Cloud Foundry. In this lab, we’ll be binding the application to a Postgres databases.
+Cloud Foundry services are managed through two primary types of operations:
+Create/Delete
+ These operations create or delete instances of a service. For a database this could mean creating/deleting a schema in an existing multitenant cluster or creating/deleting a dedicated database cluster.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Binding Cloudfoundry Services" />
+<meta property="og:description" content="Binding Cloudfoundry Services The Workshop application was designed to illustrate the ease with which data services can be bound to and utilized by applications running on Cloud Foundry. In this lab, we’ll be binding the application to a Postgres databases.
+Cloud Foundry services are managed through two primary types of operations:
+Create/Delete
+ These operations create or delete instances of a service. For a database this could mean creating/deleting a schema in an existing multitenant cluster or creating/deleting a dedicated database cluster." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nicksterling.github.io/workshops/tas/docs/services/" />
+<meta property="article:modified_time" content="2020-08-19T14:05:37-06:00" />
+<title>Binding Cloudfoundry Services | Tanzu Application Service Workshop</title>
+<link rel="manifest" href="/workshops/tas/manifest.json">
+<link rel="icon" href="/workshops/tas/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/workshops/tas/book.min.b3215d9d1d18d9051e7fbe8f256ff80e30f41d29073b86348e230d297b771002.css" integrity="sha256-syFdnR0Y2QUef76PJW/4DjD0HSkHO4Y0jiMNKXt3EAI=">
+<script defer src="/workshops/tas/en.search.min.1e3c97c5c590f7efd500c46633a18f80c9c4aade905c70fca062a4ca035604c4.js" integrity="sha256-HjyXxcWQ9&#43;/VAMRmM6GPgMnEqt6QXHD8oGKkygNWBMQ="></script>
+
+<script defer src="/workshops/tas/sw.min.6f778cb1cffd5da8a083f6549ff6a6e68149075c4a0d22bf6b56d20f6e160be3.js" integrity="sha256-b3eMsc/9Xaigg/ZUn/am5oFJB1xKDSK/a1bSD24WC&#43;M="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/workshops/tas"><span>Tanzu Application Service Workshop</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+  
+  <ul>
+    
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/environment_setup/" class="">Environment Setup</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/cloudfoundry/" class="">Pushing to Cloud Foundry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/services/" class="active">Binding Cloudfoundry Services</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/operating_your_application/" class="">Operating Your Application</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/monitoring_your_application/" class="">Monitoring Your Application</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/networking_and_policies/" class="">Networking &amp; Policies (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/data_management/" class="">Data Management (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/security/" class="">Security Documentation (Advanced)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+    <a href="/workshops/tas/docs/troubleshooting/" class="">Troubleshooting App Development &amp; Health (Advanced)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/workshops/tas/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Binding Cloudfoundry Services</strong>
+
+  <label for="toc-control">
+    
+    <img src="/workshops/tas/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#binding-cloudfoundry-services">Binding Cloudfoundry Services</a>
+      <ul>
+        <li><a href="#a-bit-of-review">A Bit of Review</a></li>
+        <li><a href="#the-services-marketplace">The Services Marketplace</a></li>
+        <li><a href="#creating-and-binding-to-a-service-instance">Creating and Binding to a Service Instance</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="binding-cloudfoundry-services">Binding Cloudfoundry Services</h1>
+<p>The Workshop application was designed to illustrate the ease with which data services can be bound to and utilized by applications running on Cloud Foundry. In this lab, we’ll be binding the application to a Postgres databases.</p>
+<p>Cloud Foundry services are managed through two primary types of operations:</p>
+<p><strong>Create/Delete</strong></p>
+<ul>
+<li>These operations create or delete instances of a service. For a database this could mean creating/deleting a schema in an existing multitenant cluster or creating/deleting a dedicated database cluster.</li>
+</ul>
+<p><strong>Bind/Unbind</strong></p>
+<ul>
+<li>These operations create or delete unique credential sets for an existing service instance that can then be injected into the environment of an application instance.</li>
+</ul>
+<h2 id="a-bit-of-review">A Bit of Review</h2>
+<p>Your instance of the sample sping-music should not be running after the steps completed in the previous lab. Make sure to change to the spring-music application directory. For this lab we will be using the Java application. Redeploy the application:</p>
+<pre><code>    $ cf push
+</code></pre>
+<p>After the application deploys and starts, visit the application in your browser by hitting the route that was generated by the CLI. Currently, this data is being retrieved from an in-memory HSQL database</p>
+<h2 id="the-services-marketplace">The Services Marketplace</h2>
+<p>There are two ways to discover what services are available on Pivotal Platform. The first is available on any instance of Cloud Foundry: the CLI. Just type:</p>
+<pre><code>    $ cf marketplace
+</code></pre>
+<p>and you’ll get a list of services, their available plans, and descriptions. On Pivotal Platform, the “free” tier of plans is normally the first one listed.</p>
+<p>The second way is specific to Pivotal Platform’s Apps Manager UI. If you haven’t already, login to it by visiting https://{your_org_pcf_api_endpoint}</p>
+<p>Click on the <em>‘Marketplace’</em> link and you’ll see the same service/plan/description listing in the browser:</p>
+<h2 id="creating-and-binding-to-a-service-instance">Creating and Binding to a Service Instance</h2>
+<p>Let’s begin by creating a Postgres service instance. From the Apps Manager UI service marketplace, select ElephantSQL for Pivotal Platform, select the tiny turtle plan, and provide an instance name. In the drop-down list next to Bind to App select your spring-music application.</p>
+<p>Notice the admonition to Use &lsquo;cf restage&rsquo; to ensure your env variable changes take effect. Let’s take a look at the environment variables for our application. We can do this by viewing to the homepage of the application. Here we will see a printout of the environment information. Take note of what is contained in the section Bound Services. It’s an empty JSON document!</p>
+<p>Now let’s restage the application, which cycles our application back through the staging/buildpack process before redeploying the application. (<em>In this case, we could accomplish the same goal by only restarting the application via cf restart spring-music. A restage is generally recommended because Cloud Foundry buildpacks also have access to injected environment variables and can install or configure things differently based on their values.</em>)</p>
+<pre><code>    $ cf restage spring-music
+</code></pre>
+<p>Once the application is running again, revisit or refresh the browser tab where you have the Wokshop application loaded. You’ll notice now we have information that could be used to connect to a DB. In fact, our data is now being retrieved from that Postgres database!</p>
+<pre><code>&quot;VCAP_SERVICES&quot;:
+{
+   &quot;p-mysql&quot;:[
+      {
+         &quot;name&quot;:&quot;adam-db&quot;,
+         &quot;label&quot;:&quot;p-mysql&quot;,
+         &quot;tags&quot;:[
+            &quot;mysql&quot;,
+            &quot;relational&quot;
+         ],
+         &quot;plan&quot;:&quot;100mb&quot;,
+         &quot;credentials&quot;:{
+            &quot;hostname&quot;:&quot;10.68.105.55&quot;,
+            &quot;port&quot;:3306,
+            &quot;name&quot;:&quot;cf_226845a3_1982_44ac_92b9_4b149af56bbc&quot;,
+            &quot;username&quot;:&quot;n67hpBOnKlsPUjKn&quot;,
+            &quot;password&quot;:&quot;hUa4WSrq2hPtBsuk&quot;,
+            &quot;uri&quot;:&quot;mysql://n67hpBOnKlsPUjKn:hUa4WSrq2hPtBsuk@10.68.105.55:3306/cf_226845a3_1982_44ac_92b9_4b149af56bbc?reconnect=true&quot;,
+            &quot;jdbcUrl&quot;:&quot;jdbc:mysql://10.68.105.55:3306/cf_226845a3_1982_44ac_92b9_4b149af56bbc?user=n67hpBOnKlsPUjKn&amp;password=hUa4WSrq2hPtBsuk&quot;
+         }
+      }
+   ]
+}
+</code></pre>
+<p>You may also verify your service was provisioned in the Apps Manager UI by clicking on your application and selecting the Services tab.</p>
+<p>You should now see the service created in step 1 listed.</p>
+<p>You may also verify your service was provisioned using the CLI:</p>
+<pre><code>$ cf services
+</code></pre>
+<p>You should now see the service created in step 1 listed and your application listed as a bound app.</p>
+<p><strong>Congratulations! You have just bound your first Cloud Foundry Service!</strong></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/commit/b6ad5ca2aff0429a65ed8f4f1c42acdca324948f" title='Last modified by Nick Sterling | August 19, 2020' target="_blank" rel="noopener">
+      <img src="/workshops/tas/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>August 19, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/nicksterling/bosh-workshop/edit/master/exampleSite/content/docs/services.md" target="_blank" rel="noopener">
+      <img src="/workshops/tas/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#binding-cloudfoundry-services">Binding Cloudfoundry Services</a>
+      <ul>
+        <li><a href="#a-bit-of-review">A Bit of Review</a></li>
+        <li><a href="#the-services-marketplace">The Services Marketplace</a></li>
+        <li><a href="#creating-and-binding-to-a-service-instance">Creating and Binding to a Service Instance</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
